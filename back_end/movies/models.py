@@ -17,6 +17,16 @@ class Movie(models.Model):
     def __str__(self):
         return str(self.title)
 
+
+class Serie(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    publish_date = models.DateTimeField()
+
+    def __str__(self):
+        return str(self.title)
+
+
 class Episode(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
@@ -27,12 +37,3 @@ class Episode(models.Model):
 
     def __str__(self):
         return str(self.title)
-
-
-class Serie(models.Model):
-    title = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
-    publish_date = models.DateTimeField()
-
-    def __str__(self):
-        return str(slef.title)
