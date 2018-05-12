@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from movies.models import *
+from movies.models import Movie, Cover
 
 class CoverSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField(read_only=True)
@@ -11,6 +11,8 @@ class CoverSerializer(serializers.ModelSerializer):
             'image',
         ]
         read_only_fields = ['pk']
+
+
 
 class MovieSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField(read_only=True)

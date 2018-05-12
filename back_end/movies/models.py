@@ -14,7 +14,7 @@ class Video(models.Model):
         return str(self.fil)
 
 class Cover(models.Model):
-    image = models.ImageField()
+    image = models.ImageField(upload_to='cover/%Y/%m/%d')
 
 class Movie(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
