@@ -1,4 +1,7 @@
 from django.db import models
+from django.urls import reverse
+
+from rest_framework.reverse import reverse as api_reverse
 
 class Genre(models.Model):
     name = models.CharField(max_length=80)
@@ -15,6 +18,9 @@ class Video(models.Model):
 
 class Cover(models.Model):
     image = models.ImageField(upload_to='cover/%Y/%m/%d')
+
+    def get_api_url(self, request=None):
+        return api_reverse("movies:cover_images", kwargs={'pk': self.pk}, request=request)
 
 class Movie(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)

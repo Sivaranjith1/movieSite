@@ -3,7 +3,7 @@ from .serializers import CoverSerializer, MovieSerializer
 from rest_framework import generics, mixins
 from movies.models import Movie, Cover
 
-class MovieAPIView(generics.ListAPIView):
+class MovieAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     lookup_fields = 'pk'
     serializer_class = MovieSerializer
 
@@ -19,7 +19,7 @@ class MovieAPIView(generics.ListAPIView):
         return {'request': self.request}
 
 
-class CoverAPIView(generics.ListAPIView):
+class CoverAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     lookup_fields = 'pk'
     serializer_class = CoverSerializer
 
