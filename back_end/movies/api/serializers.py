@@ -46,7 +46,7 @@ class MovieSerializer(serializers.ModelSerializer):
     coverImage = CoverSerializer(many=False)
     video = VideoSerializer(many=False)
     genre = GenreSerializer(many=False)
-
+    
     class Meta:
         model = Movie
         fields = [
