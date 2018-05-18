@@ -42,7 +42,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    url = serializers.SerializerMethodField(read_only=True)
+    #url = serializers.SerializerMethodField(read_only=True)
     coverImage = CoverSerializer(many=False)
     video = VideoSerializer(many=False)
     genre = GenreSerializer(many=False)
@@ -50,7 +50,7 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = [
-            'url',
+           # 'url',
             'pk',
             'video',
             'title',
@@ -59,4 +59,37 @@ class MovieSerializer(serializers.ModelSerializer):
             'coverImage',
             'genre',
         ]
-        read_only_fields = ['pk', 'url']
+        read_only_fields = ['pk', ]#'url']
+
+    def create(self, vd):
+        videoAdd = vd.pop('video')
+        genreAdd = vd.pop('genre')
+        coverAdd = vd.pop('coverImage')
+
+        videoModel = Video.objects.create(videoAdd)
+        genreModel = Genre.objects.create(genreAdd)
+        coverModel = Cover.objects.create(coverAdd)
+
+        movieModel = Movie.objects.create(
+            video = videoModel,
+            coverImage = coverModel,
+            genre = genreModel,
+            **vd
+        )
+
+        return movieModel
+
+class MovieListSerializer(serializers.ModelSerializer):
+    coverImage = CoverSerializer(many=False)
+    genre = GenreSerializer(many=False)
+    #url = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Movie
+        fields = [
+        #    'url',
+            'title',
+            'description',
+            'coverImage',
+            'genre',
+        ]

@@ -19,6 +19,10 @@ class Video(models.Model):
 class Cover(models.Model):
     image = models.ImageField(upload_to='cover/%Y/%m/%d')
 
+    def __str__(self):
+        return str(self.image)
+
+    
     def get_api_url(self, request=None):
         return api_reverse("movies:cover_images", kwargs={'pk': self.pk}, request=request)
 
