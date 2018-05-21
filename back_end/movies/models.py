@@ -54,6 +54,10 @@ class Serie(models.Model):
     def get_api_url(self, request=None):
         return api_reverse("movies:serie-detail", kwargs={'pk': self.pk}, request=request)
 
+    def get_episode(self):
+        episodes = Episode.objects.filter(serie=self)
+        return episodes
+
 
 class Episode(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
@@ -61,7 +65,7 @@ class Episode(models.Model):
     episode_number = models.IntegerField()
     description = models.TextField(blank=True)
     publish_date = models.DateTimeField()
-    serie = models.ForeignKey(Serie, on_delete=models.SET_NULL, null=True)
+    serie = models.ForeignKey(Serie, on_delete=models.SET_NULL, null=True, related_name='episode')
 
     def __str__(self):
         return str(self.title)

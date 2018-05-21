@@ -140,7 +140,7 @@ class SerieListSerializer(serializers.ModelSerializer):
 class SerieDetailSerializer(serializers.ModelSerializer):
     coverImage = CoverSerializer(many=False)
     genre = GenreSerializer(many=False)
-    #episode = EpisodeListSerializer(many=True)
+    episode = EpisodeListSerializer(many=True)
     url = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
@@ -152,7 +152,7 @@ class SerieDetailSerializer(serializers.ModelSerializer):
             'upload_date',
             'coverImage',
             'genre',
-            #'episode',
+            'episode',
         ]
 
     def get_url(self, obj):
