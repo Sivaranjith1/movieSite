@@ -44,17 +44,20 @@ class Movie(models.Model):
 class Serie(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    publish_date = models.DateTimeField()
+    upload_date = models.DateTimeField(auto_now_add=True)
     coverImage = models.ForeignKey(Cover, on_delete=models.CASCADE)
     genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return str(self.title)
 
+    def get_api_url(self, request=None):
+        return api_reverse("movies:serie-detail", kwargs={'pk': self.pk}, request=request)
+
 
 class Episode(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, blank=True)
     episode_number = models.IntegerField()
     description = models.TextField(blank=True)
     publish_date = models.DateTimeField()
@@ -62,3 +65,6 @@ class Episode(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+    def get_api_url(self, request=None):
+        return api_reverse("movies:episode-detail", kwargs={'pk': self.pk}, request=request)

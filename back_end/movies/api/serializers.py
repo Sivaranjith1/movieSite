@@ -103,21 +103,71 @@ class MovieListSerializer(serializers.ModelSerializer):
         return obj.get_api_url(request=request)
 
 class EpisodeListSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Episode
         fields = [
+            'url',
             'title',
             'episode_number',
-            'description',
         ]
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
+
+class SerieListSerializer(serializers.ModelSerializer):
+    coverImage = CoverSerializer(many=False)
+    genre = GenreSerializer(many=False)
+    url = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Serie
+        fields = [
+            'url',
+            'title',
+            'description',
+            'coverImage',
+            'genre'
+        ]
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
+
+
+class SerieDetailSerializer(serializers.ModelSerializer):
+    coverImage = CoverSerializer(many=False)
+    genre = GenreSerializer(many=False)
+    #episode = EpisodeListSerializer(many=True)
+    url = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Serie
+        fields = [
+            'url',
+            'title',
+            'description',
+            'upload_date',
+            'coverImage',
+            'genre',
+            #'episode',
+        ]
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
 
 class EpisodeDetailSerializer(serializers.ModelSerializer):
     video = VideoSerializer(many=False)
     serie = SerieListSerializer(many=False)
+    url = serializers.SerializerMethodField(read_only=True)
     
     class Meta:
         model = Episode
         fields = [
+            'url',
             'title',
             'episode_number',
             'description',
@@ -126,32 +176,6 @@ class EpisodeDetailSerializer(serializers.ModelSerializer):
             'serie',
         ]
 
-class SerieListSerializer(serializers.ModelSerializer):
-    coverImage = CoverSerializer(many=False)
-    genre = GenreSerializer(many=False)
-
-    class Meta:
-        model = Serie
-        fields = [
-            'title',
-            'description',
-            'coverImage',
-            'genre'
-        ]
-
-
-class SerieDetailSerializer(serializers.ModelSerializer):
-    coverImage = CoverSerializer(many=False)
-    genre = GenreSerializer(many=False)
-    episode = EpisodeListSerializer(many=True)
-
-    class Meta:
-        model = Serie
-        fields = [
-            'title',
-            'description',
-            'upload_date',
-            'coverImage',
-            'genre',
-            'episode',
-        ]
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
