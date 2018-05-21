@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from movies.models import Movie, Cover, Video, Genre
+from movies.models import Movie, Cover, Video, Genre, Serie, Episode
 
 class CoverSerializer(serializers.ModelSerializer):
     #url = serializers.SerializerMethodField(read_only=True)
@@ -42,7 +42,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    #url = serializers.SerializerMethodField(read_only=True)
+    url = serializers.SerializerMethodField(read_only=True)
     coverImage = CoverSerializer(many=False)
     video = VideoSerializer(many=False)
     genre = GenreSerializer(many=False)
@@ -50,7 +50,7 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = [
-           # 'url',
+            'url',
             'pk',
             'video',
             'title',
@@ -60,6 +60,10 @@ class MovieSerializer(serializers.ModelSerializer):
             'genre',
         ]
         read_only_fields = ['pk', ]#'url']
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
 
     def create(self, vd):
         videoAdd = vd.pop('video')
@@ -82,14 +86,72 @@ class MovieSerializer(serializers.ModelSerializer):
 class MovieListSerializer(serializers.ModelSerializer):
     coverImage = CoverSerializer(many=False)
     genre = GenreSerializer(many=False)
-    #url = serializers.SerializerMethodField(read_only=True)
+    url = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Movie
         fields = [
-        #    'url',
+            'url',
             'title',
             'description',
             'coverImage',
             'genre',
+        ]
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
+
+class EpisodeListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Episode
+        fields = [
+            'title',
+            'episode_number',
+            'description',
+        ]
+
+class EpisodeDetailSerializer(serializers.ModelSerializer):
+    video = VideoSerializer(many=False)
+    serie = SerieListSerializer(many=False)
+    
+    class Meta:
+        model = Episode
+        fields = [
+            'title',
+            'episode_number',
+            'description',
+            'publish_date',
+            'video',
+            'serie',
+        ]
+
+class SerieListSerializer(serializers.ModelSerializer):
+    coverImage = CoverSerializer(many=False)
+    genre = GenreSerializer(many=False)
+
+    class Meta:
+        model = Serie
+        fields = [
+            'title',
+            'description',
+            'coverImage',
+            'genre'
+        ]
+
+
+class SerieDetailSerializer(serializers.ModelSerializer):
+    coverImage = CoverSerializer(many=False)
+    genre = GenreSerializer(many=False)
+    episode = EpisodeListSerializer(many=True)
+
+    class Meta:
+        model = Serie
+        fields = [
+            'title',
+            'description',
+            'upload_date',
+            'coverImage',
+            'genre',
+            'episode',
         ]

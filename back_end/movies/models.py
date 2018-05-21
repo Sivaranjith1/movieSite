@@ -37,6 +37,9 @@ class Movie(models.Model):
     def __str__(self):
         return str(self.title)
 
+    def get_api_url(self, request=None):
+        return api_reverse("movies:movie-detail", kwargs={'pk': self.pk}, request=request)
+
 
 class Serie(models.Model):
     title = models.CharField(max_length=100)
