@@ -1,12 +1,15 @@
 const initialState = {
     count: 0,
-    movies: []
+    movies: [],
+    serie: [],
 }
 
 export default function (state=initialState, action) {
     switch(action.type) {
-        case 'PLACEHOLDER':
-            return state;
+        case 'FETCH_MOVIE':
+            return {...state, movies: [
+                ...state.movies, action.payload
+            ]};
 
         default:
             return state;
