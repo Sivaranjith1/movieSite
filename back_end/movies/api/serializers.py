@@ -92,6 +92,7 @@ class MovieListSerializer(serializers.ModelSerializer):
         model = Movie
         fields = [
             'url',
+            'pk',
             'title',
             'description',
             'coverImage',
@@ -109,6 +110,7 @@ class EpisodeListSerializer(serializers.ModelSerializer):
         model = Episode
         fields = [
             'url',
+            'pk',
             'title',
             'episode_number',
         ]
@@ -126,6 +128,7 @@ class SerieListSerializer(serializers.ModelSerializer):
         model = Serie
         fields = [
             'url',
+            'pk',
             'title',
             'description',
             'coverImage',
@@ -147,6 +150,7 @@ class SerieDetailSerializer(serializers.ModelSerializer):
         model = Serie
         fields = [
             'url',
+            'pk',
             'title',
             'description',
             'upload_date',
@@ -168,6 +172,7 @@ class EpisodeDetailSerializer(serializers.ModelSerializer):
         model = Episode
         fields = [
             'url',
+            'pk',
             'title',
             'episode_number',
             'description',
