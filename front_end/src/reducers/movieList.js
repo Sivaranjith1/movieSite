@@ -11,6 +11,11 @@ export default function (state=initialState, action) {
                 ...state.movies, ...action.payload
             ]};
 
+        case 'FETCH_SERIE':
+            return {...state, serie: [
+                ...state.serie, ...action.payload
+            ]}
+
         default:
             return state;
     }
