@@ -193,6 +193,8 @@ class EpisodeDetailSerializer(serializers.ModelSerializer):
 
 class GenreDetailSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField(read_only=True)
+    serieGenre = SerieListSerializer(many=True)
+    movieGenre = MovieListSerializer(many=True)
 
     class Meta:
         model = Genre
@@ -200,6 +202,8 @@ class GenreDetailSerializer(serializers.ModelSerializer):
             'url',
             'pk',
             'name',
+            'serieGenre',
+            'movieGenre',
         ]
         read_only_fields = ['pk',]
 

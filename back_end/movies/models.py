@@ -35,7 +35,7 @@ class Movie(models.Model):
     description = models.TextField(blank=True)
     publish_date = models.DateTimeField()
     coverImage = models.ForeignKey(Cover, on_delete=models.CASCADE)
-    genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
+    genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True, related_name='movieGenre')
 
     def __str__(self):
         return str(self.title)
@@ -49,7 +49,7 @@ class Serie(models.Model):
     description = models.TextField(blank=True)
     upload_date = models.DateTimeField(auto_now_add=True)
     coverImage = models.ForeignKey(Cover, on_delete=models.CASCADE)
-    genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
+    genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True, related_name='serieGenre')
 
     def __str__(self):
         return str(self.title)
