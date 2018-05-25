@@ -31,14 +31,20 @@ class VideoSerializer(serializers.ModelSerializer):
         read_only_fields = ['pk',]
 
 class GenreSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Genre
         fields = [
+            'url',
             'pk',
             'name',
         ]
         read_only_fields = ['pk',]
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
 
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -180,6 +186,22 @@ class EpisodeDetailSerializer(serializers.ModelSerializer):
             'video',
             'serie',
         ]
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
+
+class GenreDetailSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Genre
+        fields = [
+            'url',
+            'pk',
+            'name',
+        ]
+        read_only_fields = ['pk',]
 
     def get_url(self, obj):
         request = self.context.get("request")

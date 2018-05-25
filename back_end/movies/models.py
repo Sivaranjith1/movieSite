@@ -9,6 +9,9 @@ class Genre(models.Model):
     def __str__(self):
         return str(self.name)
 
+    def get_api_url(self, request=None):
+        return api_reverse("movies:genre-detail", kwargs={'pk': self.pk}, request=request)
+
 class Video(models.Model):
     fil = models.FileField()
     upload_date = models.DateTimeField(auto_now_add=True)

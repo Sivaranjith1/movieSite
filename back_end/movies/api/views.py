@@ -55,6 +55,14 @@ class SerieDetailView(generics.RetrieveAPIView):
     queryset = Serie.objects.all()
 
 class EpisodeDetailView(generics.RetrieveAPIView):
-    loopup_fields = 'pk'
+    lookup_fields = 'pk'
     serializer_class = EpisodeDetailSerializer
     queryset = Episode.objects.all()
+
+class GenreListView(generics.ListAPIView):
+    serializer_class = GenreSerializer
+    queryset = Genre.objects.all()
+
+class GenreDetailView(generics.RetrieveAPIView):
+    serializer_class = GenreDetailSerializer
+    queryset = Genre.objects.all()
