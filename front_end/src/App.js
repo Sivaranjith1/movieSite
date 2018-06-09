@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import red from '@material-ui/core/colors/red';
+import { grey } from '@material-ui/core/colors';
 
 import NavBar from './components/NavBar/NavBar';
 import MovieList from './components/grid/MovieList'
@@ -9,7 +9,7 @@ import MovieList from './components/grid/MovieList'
 
 const theme = createMuiTheme({
   palette: {
-    primary: red
+    primary: grey,
   }
 })
 
