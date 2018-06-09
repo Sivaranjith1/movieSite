@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import red from '@material-ui/core/colors/red';
+
 import NavBar from './components/NavBar/NavBar';
 import MovieList from './components/grid/MovieList'
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: red
+  }
+})
 
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={theme} >
         <div className="App">
           <NavBar />
           <MovieList />
