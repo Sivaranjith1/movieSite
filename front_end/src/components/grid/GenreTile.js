@@ -43,12 +43,11 @@ class GenreTile extends Component {
             <Typography variant="display1" className={classes.whiteText} gutterBottom>
                 {genreName}
             </Typography>
-
-            <div className={classes.gridDiv}>
+            {movieList && movieList.length !== 0 && <div className={classes.gridDiv}>
                 <GridList className={classes.gridList} cols={2.5}>
-                {movieList && movieList.map((elem, index) => <GridListTile key={index}><h1>{elem.title}</h1></GridListTile>)}
+                 {movieList.map((elem, index) => <GridListTile key={index}><h1>{elem.title}</h1></GridListTile>)}
                 </GridList>
-            </div>
+            </div>}
             <Divider className={classes.whiteLine} />
         </div>
     )
