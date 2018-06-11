@@ -4,6 +4,7 @@ import { capitalizeFirstLetter } from '../../functions/uppercase'
 import { Typography, Divider } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { fetch_genreMovie } from '../../actions/fetch_genreMovie'
+import { GridList, GridListTile, GridListTileBar } from '@material-ui/core'
 
 const style = theme => ({
     whiteText: {
@@ -11,7 +12,19 @@ const style = theme => ({
     },
     whiteLine: {
         backgroundColor: theme.palette.primary.main
-    }
+    },
+    gridDiv: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: theme.palette.background.paper,
+    },
+    gridList: {
+        flexWrap: 'nowrap',
+        // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+        transform: 'translateZ(0)',
+    },
 })
 
 class GenreTile extends Component {
@@ -20,9 +33,9 @@ class GenreTile extends Component {
     }
 
     render(){
-    let genreName = capitalizeFirstLetter(this.props.income.name)
     let movieList = this.props.movieList[this.props.income.pk]
     let serieList = this.props.serieList[this.props.income.pk]
+    let genreName = capitalizeFirstLetter(this.props.income.name)
 
     const { classes } = this.props
     return (
@@ -30,6 +43,12 @@ class GenreTile extends Component {
             <Typography variant="display1" className={classes.whiteText} gutterBottom>
                 {genreName}
             </Typography>
+
+            <div className={classes.gridDiv}>
+                <GridList className={classes.gridList} cols={2.5}>
+                {movieList && movieList.map((index, elem) => <GridListTile key={index}><h1>{elem.title}</h1></GridListTile>)}
+                </GridList>
+            </div>
             <Divider className={classes.whiteLine} />
         </div>
     )
