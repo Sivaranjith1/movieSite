@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .serializers import *
 from rest_framework import generics, mixins
 from movies.models import *
+from .pagination import GenrePagination
 
 class MovieAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     lookup_fields = 'pk'
@@ -62,6 +63,7 @@ class EpisodeDetailView(generics.RetrieveAPIView):
 class GenreListView(generics.ListAPIView):
     serializer_class = GenreSerializer
     queryset = Genre.objects.all()
+    pagination_class = GenrePagination
 
 class GenreDetailView(generics.RetrieveAPIView):
     serializer_class = GenreDetailSerializer
