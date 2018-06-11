@@ -46,7 +46,7 @@ class GenreTile extends Component {
 
             <div className={classes.gridDiv}>
                 <GridList className={classes.gridList} cols={2.5}>
-                {movieList && movieList.map((index, elem) => <GridListTile key={index}><h1>{elem.title}</h1></GridListTile>)}
+                {movieList && movieList.map((elem, index) => <GridListTile key={index}><h1>{elem.title}</h1></GridListTile>)}
                 </GridList>
             </div>
             <Divider className={classes.whiteLine} />
