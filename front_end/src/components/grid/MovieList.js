@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { fetch_movies } from '../../actions/fetch_movies'
 import { fetch_genre } from '../../actions/fetch_genre'
 import { CircularProgress } from '@material-ui/core'
+import GenreTile from './GenreTile'
 
 class MovieList extends Component {
   componentDidMount() {
@@ -18,7 +19,7 @@ class MovieList extends Component {
             <CircularProgress size={100} />
           </center>
           :
-          console.log("ye")
+          this.props.genre.map(data => <GenreTile key={data.pk} genre={data} />)
         }
         <button onClick={() => {this.props.fetch_genre()}}>Test</button>
       </div>
@@ -32,4 +33,4 @@ const mapStateToProps = state => ({
     genre: state.genre.genre,
 })
 
-export default  connect(mapStateToProps, { fetch_movies, fetch_genre })(MovieList);
+export default connect(mapStateToProps, { fetch_movies, fetch_genre })(MovieList);
