@@ -19,7 +19,7 @@ class MovieList extends Component {
             <CircularProgress size={100} />
           </center>
           :
-          this.props.genre.map(data => <GenreTile key={data.pk} genre={data} />)
+          this.props.genre.map(data => <GenreTile key={data.pk} income={data} />)
         }
         <button onClick={() => {this.props.fetch_genre()}}>Test</button>
       </div>
