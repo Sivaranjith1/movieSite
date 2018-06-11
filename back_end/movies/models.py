@@ -6,6 +6,9 @@ from rest_framework.reverse import reverse as api_reverse
 class Genre(models.Model):
     name = models.CharField(max_length=80)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return str(self.name)
 
