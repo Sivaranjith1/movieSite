@@ -9,7 +9,9 @@ import MovieList from './components/grid/MovieList'
 
 const theme = createMuiTheme({
   palette: {
-    primary: grey,
+    primary: {main: grey[800]},
+    light: '#FFF',
+    type: 'dark',
   }
 })
 

@@ -23,6 +23,7 @@ const styles = theme => ({
   },
   colorTool: {
     backgroundColor: theme.palette.primary.main,
+    color: theme.palette.light,
   },
 });
 
