@@ -40,7 +40,6 @@ class NavBar extends React.Component{
     const { classes } = this.props; 
     return (
       <div className={classes.root}>
-        {console.log(this.state)/*                     A CONSOLE LOG                            */}
         <AppBar position="static" color="default">
           <Toolbar className={classes.colorTool}>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={() => this.setState({isOpen: !this.state.isOpen})} >
