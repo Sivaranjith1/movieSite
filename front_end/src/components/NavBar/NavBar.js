@@ -9,7 +9,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import { ListItem, ListItemText, ListItemIcon, Divider } from '@material-ui/core/'
-//import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 const styles = theme => ({
@@ -26,6 +26,9 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.light,
   },
+  removeDec: {
+    textDecoration: 'none',
+  }
 });
 
 class NavBar extends React.Component{
@@ -61,21 +64,27 @@ class NavBar extends React.Component{
                 </ListItemIcon>
               </ListItem>
               <Divider />
-              <ListItem button component="a">
-                <ListItemText>
-                  Home
-                </ListItemText>
-              </ListItem>
-              <ListItem button component="a">
-                <ListItemText>
-                  Movies
-                </ListItemText>
-              </ListItem>
-              <ListItem button component="a">
-                <ListItemText>
-                  Series
-                </ListItemText>
-              </ListItem>
+              <Link to="/" className={classes.removeDec}>
+                <ListItem button>
+                  <ListItemText>
+                    Home
+                  </ListItemText>
+                </ListItem>
+              </Link>
+              <Link to="/movie" className={classes.removeDec}>
+                <ListItem button>
+                  <ListItemText>
+                    Movies
+                  </ListItemText>
+                </ListItem>
+              </Link>
+              <Link to="/serie" className={classes.removeDec}>
+                <ListItem button>
+                  <ListItemText>
+                    Series
+                  </ListItemText>
+                </ListItem>
+              </Link>
 
               <Divider />
 

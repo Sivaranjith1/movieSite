@@ -1,24 +1,36 @@
 import React from 'react'
-import { Dialog, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
+import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { dialog_close } from '../../actions/dialog_close'
 import { dialog_open } from '../../actions/dialog_open'
 
 const MovieDialog = props => {
   return (
+    <div>
+    {props.context.coverImage
+    && 
     <Dialog
         open={props.open}
         onClose={props.dialog_close}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-    >
+    >   
+        <div>
+            <img src={props.context.coverImage.image} alt={props.context.title} />
+        </div>
         <DialogTitle id="alert-dialog-title">{props.context.title}</DialogTitle>
         <DialogContent>
             <DialogContentText>
                 {props.context.description}
             </DialogContentText>
         </DialogContent>
-    </Dialog>
+        <DialogActions>
+            <Button onClick={console.log(" ")}>
+              Watch
+            </Button>
+        </DialogActions>
+    </Dialog>}
+    </div>
   )
 }
 
