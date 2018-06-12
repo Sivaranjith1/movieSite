@@ -4,7 +4,8 @@ import { capitalizeFirstLetter } from '../../functions/uppercase'
 import { Typography, Divider } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { fetch_genreMovie } from '../../actions/fetch_genreMovie'
-import { GridList, GridListTile, GridListTileBar } from '@material-ui/core'
+import { GridList } from '@material-ui/core'
+import PictureTile from './PictureTile'
 
 const style = theme => ({
     whiteText: {
@@ -43,10 +44,28 @@ class GenreTile extends Component {
             <Typography variant="display1" className={classes.whiteText} gutterBottom>
                 {genreName}
             </Typography>
-            {movieList && movieList.length !== 0 && <div className={classes.gridDiv}>
-                <GridList className={classes.gridList} cols={2.5}>
-                 {movieList.map((elem, index) => <GridListTile key={index}><h1>{elem.title}</h1></GridListTile>)}
-                </GridList>
+            {movieList && movieList.length !== 0 && 
+            <div>
+                <Typography variant="title" className={classes.whiteText} gutterBottom>
+                    Movies
+                </Typography>
+                <div className={classes.gridDiv}>
+                    <GridList className={classes.gridList} cols={2.5}>
+                    {movieList.map((elem, index) => <PictureTile key={index} elem={elem} genreID={this.props.income.pk} index={index} isMovie={true} />)}
+                    </GridList>
+                </div>
+            </div>}
+
+            {serieList && serieList.length !== 0 && 
+            <div>
+                <Typography variant="title" className={classes.whiteText} gutterBottom>
+                    Series
+                </Typography>
+                <div className={classes.gridDiv}>
+                    <GridList className={classes.gridList} cols={2.5}>
+                    {serieList.map((elem, index) => <PictureTile key={index} elem={elem} genreID={this.props.income.pk} index={index} isMovie={false} />)}
+                    </GridList>
+                </div>
             </div>}
             <Divider className={classes.whiteLine} />
         </div>

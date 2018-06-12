@@ -4,6 +4,7 @@ import { fetch_movies } from '../../actions/fetch_movies'
 import { fetch_genre } from '../../actions/fetch_genre'
 import { CircularProgress } from '@material-ui/core'
 import GenreTile from './GenreTile'
+import MovieDialog from './MovieDialog'
 
 class MovieList extends Component {
   componentDidMount() {
@@ -19,7 +20,10 @@ class MovieList extends Component {
             <CircularProgress size={100} />
           </center>
           :
-          this.props.genre.map(data => <GenreTile key={data.pk} income={data} />)
+          <div>
+            <MovieDialog />
+            {this.props.genre.map(data => <GenreTile key={data.pk} income={data} />)}
+          </div>
         }
         <button onClick={() => {this.props.fetch_genre()}}>Test</button>
       </div>

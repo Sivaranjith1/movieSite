@@ -1,5 +1,7 @@
 import { url } from '../config'
 const initialState = {
+    openDialog: false,
+    dialogContext: {},
     genreNext: `${url}/movie/genre/`,
     genre: [],
     genreMovie: {},
@@ -31,6 +33,23 @@ export default function (state=initialState, action) {
                     [action.payload.pk]: [...oldSeriePK, ...action.payload.serieGenre],
                 }
             }
+
+        case "DIALOG_OPEN":
+            let genreId = action.payload[0]
+            let index = action.payload[1]
+            let requestFrom = action.payload[2] ? state.genreMovie : state.genreSerie
+            return {
+                ...state,
+                openDialog: true,
+                dialogContext: requestFrom[genreId][index]
+            }
+
+        case "DIALOG_CLOSE":
+            return {
+                ...state,
+                openDialog: false,
+            }
+
         default:
             return state;
     }
