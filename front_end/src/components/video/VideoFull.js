@@ -5,7 +5,7 @@ import { close_video } from '../../actions/close_video'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
+import CloseIcon from '@material-ui/icons/Close'
 
 const VideoFull = props => {
   return (
@@ -16,15 +16,15 @@ const VideoFull = props => {
     >
         <AppBar position="static" color="default">
           <Toolbar>
-            <IconButton color="inherit" aria-label="Menu" onClick={() => this.setState({isOpen: !this.state.isOpen})} >
-              <MenuIcon />
+            <IconButton color="inherit" aria-label="Menu" onClick={() => props.close_video()} >
+              <CloseIcon />
             </IconButton>
             <Typography variant="title" color="inherit" align="center">
-              Title
+              {props.context.title}
             </Typography>
           </Toolbar>
         </AppBar>
-        <h1>Hei</h1>
+
     </Dialog>
   )
 }
@@ -35,3 +35,4 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, { close_video })(VideoFull);
+//             Maybe change Dialog to card
