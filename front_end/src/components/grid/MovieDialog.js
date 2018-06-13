@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, B
 import { connect } from 'react-redux'
 import { dialog_close } from '../../actions/dialog_close'
 import { dialog_open } from '../../actions/dialog_open'
+import { fetch_video } from '../../actions/fetch_video'
 
 const MovieDialog = props => {
   return (
@@ -25,7 +26,7 @@ const MovieDialog = props => {
             </DialogContentText>
         </DialogContent>
         <DialogActions>
-            <Button onClick={console.log(" ")}>
+            <Button onClick={() => props.fetch_video(props.context.url)}>
               Watch
             </Button>
         </DialogActions>
@@ -39,4 +40,4 @@ const mapStateToProps = state => ({
     context: state.genre.dialogContext
 })
 
-export default connect(mapStateToProps, { dialog_close, dialog_open })(MovieDialog)
+export default connect(mapStateToProps, { dialog_close, dialog_open, fetch_video })(MovieDialog)

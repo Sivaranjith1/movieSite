@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import NavBar from './components/NavBar/NavBar';
 import MovieList from './components/grid/MovieList'
+import VideoFull from './components/video/VideoFull'
 
 
 const theme = createMuiTheme({
@@ -24,6 +25,7 @@ class App extends Component {
           <div className="App">
             <NavBar />
             <MovieList />
+            <VideoFull />
           </div>
         </MuiThemeProvider>
       </BrowserRouter>
