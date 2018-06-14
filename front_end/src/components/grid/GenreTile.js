@@ -38,9 +38,16 @@ class GenreTile extends Component {
     let serieList = this.props.serieList[this.props.income.pk]
     let genreName = capitalizeFirstLetter(this.props.income.name)
 
+    let status = false
+    if((movieList && movieList.length !== 0) || (serieList && serieList.length !== 0)){
+        status = true
+    }
+
     const { classes } = this.props
     return (
         <div className={classes.whiteText}>
+        {status &&
+        <div>
             <Typography variant="display1" className={classes.whiteText} gutterBottom>
                 {genreName}
             </Typography>
@@ -55,7 +62,6 @@ class GenreTile extends Component {
                     </GridList>
                 </div>
             </div>}
-
             {serieList && serieList.length !== 0 && 
             <div>
                 <Typography variant="title" className={classes.whiteText} gutterBottom>
@@ -68,6 +74,7 @@ class GenreTile extends Component {
                 </div>
             </div>}
             <Divider className={classes.whiteLine} />
+        </div>}
         </div>
     )
     }
