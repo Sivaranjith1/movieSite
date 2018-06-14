@@ -85,19 +85,6 @@ class NavBar extends React.Component{
                   </ListItemText>
                 </ListItem>
               </Link>
-
-              <Divider />
-
-              <ListItem button component="a">
-                <ListItemText>
-                  Watched
-                </ListItemText>
-              </ListItem>
-              <ListItem button component="a">
-                <ListItemText>
-                  Hearted
-                </ListItemText>
-              </ListItem>
             </List>
           </div>
         </Drawer>
