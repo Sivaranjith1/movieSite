@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetch_movies } from '../../actions/fetch_movies'
 import { fetch_genre } from '../../actions/fetch_genre'
+import { clean_genre } from '../../actions/clean_genre'
 import { CircularProgress } from '@material-ui/core'
 import GenreTile from './GenreTile'
 import MovieDialog from './MovieDialog'
@@ -9,6 +10,16 @@ import MovieDialog from './MovieDialog'
 class MovieList extends Component {
   componentDidMount() {
     this.props.fetch_genre()
+  }
+
+  componentDidUpdate(prevProps) {
+    let urlBefore = prevProps.location.pathname
+    let urlNow = this.props.location.pathname
+    if (urlBefore !== urlNow){
+      this.props.clean_genre()
+      //          Edit genreUrl insert here
+      this.props.fetch_genre()
+    }
   }
 
   render() {
@@ -37,4 +48,4 @@ const mapStateToProps = state => ({
     genre: state.genre.genre,
 })
 
-export default connect(mapStateToProps, { fetch_movies, fetch_genre })(MovieList);
+export default connect(mapStateToProps, { fetch_movies, fetch_genre, clean_genre })(MovieList);

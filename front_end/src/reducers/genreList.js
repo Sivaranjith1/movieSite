@@ -50,6 +50,11 @@ export default function (state=initialState, action) {
                 openDialog: false,
             }
 
+        case "CLEAN_GENRE":
+            return {
+                ...initialState
+            }
+
         default:
             return state;
     }

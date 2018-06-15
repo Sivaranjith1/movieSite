@@ -5,7 +5,7 @@ import { grey } from '@material-ui/core/colors';
 import { BrowserRouter } from 'react-router-dom'
 
 import NavBar from './components/NavBar/NavBar';
-import MovieList from './components/grid/MovieList'
+import RoutController from './components/grid/RoutController'
 import VideoFull from './components/video/VideoFull'
 
 
@@ -24,7 +24,7 @@ class App extends Component {
         <MuiThemeProvider theme={theme} >
           <div className="App">
             <NavBar />
-            <MovieList />
+            <RoutController />
             <VideoFull />
           </div>
         </MuiThemeProvider>
