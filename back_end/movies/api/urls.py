@@ -12,6 +12,8 @@ urlpatterns = [
     url('^episode/(?P<pk>\d+)/$', EpisodeDetailView.as_view(), name='episode-detail'),
 
     url('^genre/$', GenreListView.as_view(), name='genre-list'),
-    url('^genre/(?P<pk>\d+)/$', GenreDetailView.as_view(), name='genre-detail')
+    url('^genre/(?P<pk>\d+)/$', GenreDetailView.as_view(), name='genre-detail'),
+    url('^genreMovie/$', GenreListViewMovie.as_view(), name='genre-list-movie'),
+    url('^genreSerie/$', GenreListViewSerie.as_view(), name='genre-list-Serie'),
 
 ]

@@ -3,6 +3,7 @@ from .serializers import *
 from rest_framework import generics, mixins
 from movies.models import *
 from .pagination import GenrePagination
+from django.db.models import Q
 
 class MovieAPIView(mixins.CreateModelMixin, generics.ListAPIView):
     lookup_fields = 'pk'
@@ -62,8 +63,33 @@ class EpisodeDetailView(generics.RetrieveAPIView):
 
 class GenreListView(generics.ListAPIView):
     serializer_class = GenreSerializer
-    queryset = Genre.objects.all()
+    #queryset = Genre.objects.all()
     pagination_class = GenrePagination
+
+    def get_queryset(self):
+        qs = Genre.objects.distinct().filter(Q(movieGenre__isnull=False) | Q(serieGenre__isnull=False))
+
+        return qs
+
+class GenreListViewMovie(generics.ListAPIView):
+    serializer_class = GenreSerializer
+    #queryset = Genre.objects.all()
+    pagination_class = GenrePagination
+
+    def get_queryset(self):
+        qs = Genre.objects.distinct().filter(Q(movieGenre__isnull=False))
+
+        return qs
+
+class GenreListViewSerie(generics.ListAPIView):
+    serializer_class = GenreSerializer
+    #queryset = Genre.objects.all()
+    pagination_class = GenrePagination
+
+    def get_queryset(self):
+        qs = Genre.objects.distinct().filter(Q(serieGenre__isnull=False))
+
+        return qs
 
 class GenreDetailView(generics.RetrieveAPIView):
     serializer_class = GenreDetailSerializer
