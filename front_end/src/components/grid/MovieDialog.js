@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { dialog_close } from '../../actions/dialog_close'
 import { dialog_open } from '../../actions/dialog_open'
 import { fetch_video } from '../../actions/fetch_video'
+import { fetch_serie } from '../../actions/fetch_serie'
 import { withStyles } from '@material-ui/core/styles'
 
 const style = theme => ({
@@ -26,8 +27,20 @@ const style = theme => ({
 
 const MovieDialog = props => {
     const { classes } = props
-    let url = props.context.coverImage ? props.context.coverImage.image : ''
-    const img = {background: `url(${url})`, backgroundPosition: 'center', backgroundSize: 'cover'}
+
+    let url = ''
+    let img
+    let type
+    let fetchVideo
+    if(props.context.coverImage){
+        url = props.context.coverImage.image
+        img = {background: `url(${url})`, backgroundPosition: 'center', backgroundSize: 'cover'}
+
+        type = props.context.url.split("/")
+        type = type[type.length-3]
+
+        fetchVideo = type === 'serie' ? props.fetch_serie : props.fetch_video
+    }
   return (
     <div>
     {props.context.coverImage
@@ -52,10 +65,17 @@ const MovieDialog = props => {
             </DialogContentText>
         </DialogContent>
         <DialogActions>
-            <Button onClick={() => props.fetch_video(props.context.url)}>
+            <Button onClick={() => fetchVideo(props.context.url)}>
               Watch
             </Button>
         </DialogActions>
+        {type === 'serie' &&
+            <DialogContent>
+                <DialogContentText>
+                    Serie
+                </DialogContentText>
+            </DialogContent>
+        }
     </div>
     </Dialog>}
     </div>
@@ -67,4 +87,4 @@ const mapStateToProps = state => ({
     context: state.genre.dialogContext
 })
 
-export default connect(mapStateToProps, { dialog_close, dialog_open, fetch_video })(withStyles(style)(MovieDialog))
+export default connect(mapStateToProps, { dialog_close, dialog_open, fetch_video, fetch_serie })(withStyles(style)(MovieDialog))

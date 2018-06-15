@@ -3,6 +3,8 @@ import './App.css';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import { BrowserRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { fetch_genre } from './actions/fetch_genre'
 
 import NavBar from './components/NavBar/NavBar';
 import RoutController from './components/grid/RoutController'
@@ -18,6 +20,22 @@ const theme = createMuiTheme({
 })
 
 class App extends Component {
+  constructor() {
+    super()
+    this.henter = false  // does not update
+  }
+
+  componentDidMount() {
+    document.addEventListener('scroll', this.trackScrolling);
+  }
+  
+  trackScrolling = () => {
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 100) && !this.henter) {
+      this.props.fetch_genre()
+      this.henter = true
+    }
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -33,4 +51,6 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({})
+
+export default connect(mapStateToProps,{ fetch_genre })(App);

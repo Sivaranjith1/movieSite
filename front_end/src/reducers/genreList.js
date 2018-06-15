@@ -55,6 +55,24 @@ export default function (state=initialState, action) {
                 ...initialState
             }
 
+        case "URL_MOVIE":
+            return {
+                ...initialState,
+                genreNext: `${url}/movie/genreMovie/`,
+            }
+
+        case "URL_SERIE":
+        return {
+            ...initialState,
+            genreNext: `${url}/movie/genreSerie/`,
+        }
+
+        case "URL_GENRE":
+        return {
+            ...initialState,
+            genreNext: `${url}/movie/genre/`,
+        }
+
         default:
             return state;
     }
