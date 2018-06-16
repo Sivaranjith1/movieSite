@@ -20,19 +20,13 @@ const theme = createMuiTheme({
 })
 
 class App extends Component {
-  constructor() {
-    super()
-    this.henter = false  // does not update
-  }
-
   componentDidMount() {
     document.addEventListener('scroll', this.trackScrolling);
   }
   
   trackScrolling = () => {
-    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 100) && !this.henter) {
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 100) && !this.props.fetching) {
       this.props.fetch_genre()
-      this.henter = true
     }
   }
 
@@ -51,6 +45,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  fetching: state.genre.fetching
+})
 
 export default connect(mapStateToProps,{ fetch_genre })(App);

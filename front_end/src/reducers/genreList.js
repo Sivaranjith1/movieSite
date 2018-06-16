@@ -1,6 +1,8 @@
 import { url } from '../config'
 const initialState = {
     openDialog: false,
+    fetching: false,
+    count: 0,
     dialogContext: {},
     genreNext: `${url}/movie/genre/`,
     genre: [],
@@ -10,10 +12,18 @@ const initialState = {
 
 export default function (state=initialState, action) {
     switch(action.type){
+        case "FETCHING":
+            return {
+                ...state,
+                fetching: true,
+            }
+
         case "FETCH_GENRE":
             return {
                 ...state,
                 genreNext: action.payload.next,
+                fetching: false,
+                count: action.payload.count,
                 genre: [
                     ...state.genre, ...action.payload.results
                 ]

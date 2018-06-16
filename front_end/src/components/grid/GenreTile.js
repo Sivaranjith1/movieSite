@@ -5,6 +5,7 @@ import { Typography, Divider } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { fetch_genreMovie } from '../../actions/fetch_genreMovie'
 import { GridList } from '@material-ui/core'
+import { withRouter } from 'react-router-dom'
 import PictureTile from './PictureTile'
 
 const style = theme => ({
@@ -29,13 +30,34 @@ const style = theme => ({
 })
 
 class GenreTile extends Component {
-    componentDidMount(){
+    componentDidMount() {
         this.props.fetch_genreMovie(this.props.income.url)
+
+        let urlNow = this.props.location.pathname
+        switch(urlNow){
+            case '/movie':
+                this.isMovie = true
+                this.isSerie = false
+                break
+
+            case '/serie':
+                this.isMovie = false
+                this.isSerie = true
+                break
+
+            case '/':
+                this.isMovie = true
+                this.isSerie = true
+                break
+
+            default:
+                break
+        }
     }
 
     render(){
-    let movieList = this.props.movieList[this.props.income.pk]
-    let serieList = this.props.serieList[this.props.income.pk]
+    let movieList = this.isMovie ? this.props.movieList[this.props.income.pk] : []
+    let serieList = this.isSerie ? this.props.serieList[this.props.income.pk] : []
     let genreName = capitalizeFirstLetter(this.props.income.name)
 
     let status = false
@@ -85,4 +107,4 @@ const mapStateToProps = state => ({
     serieList: state.genre.genreSerie,
 })
 
-export default connect(mapStateToProps, { fetch_genreMovie })(withStyles(style)(GenreTile))
+export default withRouter(connect(mapStateToProps, { fetch_genreMovie })(withStyles(style)(GenreTile)))

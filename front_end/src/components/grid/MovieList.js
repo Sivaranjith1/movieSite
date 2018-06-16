@@ -66,6 +66,10 @@ class MovieList extends Component {
           <div>
             <MovieDialog />
             {this.props.genre.map(data => <GenreTile key={data.pk} income={data} />)}
+            {
+              Object.keys(this.props.genre).length < this.props.count &&
+              <center><CircularProgress size={60} /></center>
+            }
           </div>
         }
       </div>
@@ -74,9 +78,9 @@ class MovieList extends Component {
 }
 
 const mapStateToProps = state => ({
-    count: state.movies.count,
     movies: state.movies.movies,
     genre: state.genre.genre,
+    count: state.genre.count
 })
 
 const reduxFuncs = { fetch_genre, /*clean_genre,*/ url_movie, url_serie, url_genre }
